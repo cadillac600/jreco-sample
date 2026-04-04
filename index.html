@@ -6,1398 +6,1556 @@
   <title>JRE Corporation | 株式会社ジェイ・アール・イーコーポレイション</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700;900&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700;800;900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
   <style>
-    *, *::before, *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --gold: #c9a84c;
-      --gold-light: #e8c97a;
-      --gold-dark: #9a7530;
-      --dark: #080c14;
-      --dark-2: #0d1220;
-      --dark-3: #111827;
-      --glass: rgba(255,255,255,0.04);
-      --glass-border: rgba(255,255,255,0.08);
-      --text: #e8eaf0;
-      --text-muted: #8892a4;
-      --accent: #3b82f6;
+      --ink:    #111114;
+      --ink-2:  #3d3d45;
+      --muted:  #8f8f9a;
+      --line:   #e4e4ea;
+      --bg:     #fafaf8;
+      --white:  #ffffff;
+      --accent: #ff5c35;
+      --accent-2: #0057ff;
+      --mint:   #e8f7f2;
+      --cream:  #fdf6ee;
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      background: var(--dark);
-      color: var(--text);
+      background: var(--bg);
+      color: var(--ink);
       font-family: 'Inter', 'Noto Sans JP', sans-serif;
       overflow-x: hidden;
-      line-height: 1.6;
     }
 
-    /* ── Canvas Background ── */
-    #bg-canvas {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    /* ── Navigation ── */
+    /* ── NAV ── */
     nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      padding: 20px 60px;
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 200;
+      padding: 0 56px;
+      height: 72px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       transition: all 0.4s ease;
     }
     nav.scrolled {
-      background: rgba(8,12,20,0.85);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--glass-border);
-      padding: 14px 60px;
+      background: rgba(250,250,248,0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line);
     }
-    .nav-logo {
+    .logo {
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 1px;
+      text-decoration: none;
     }
-    .nav-logo .logo-en {
-      font-family: 'Inter', sans-serif;
-      font-weight: 700;
-      font-size: 1.3rem;
-      letter-spacing: 0.15em;
-      color: var(--gold-light);
+    .logo-en {
+      font-weight: 800;
+      font-size: 1.05rem;
+      letter-spacing: 0.06em;
+      color: var(--ink);
+      line-height: 1;
     }
-    .nav-logo .logo-jp {
+    .logo-jp {
       font-family: 'Noto Sans JP', sans-serif;
-      font-size: 0.6rem;
-      font-weight: 300;
-      color: var(--text-muted);
-      letter-spacing: 0.1em;
+      font-size: 0.56rem;
+      font-weight: 400;
+      color: var(--muted);
+      letter-spacing: 0.06em;
     }
-    .nav-links {
+    .nav-center {
       display: flex;
-      gap: 40px;
+      gap: 36px;
       list-style: none;
     }
-    .nav-links a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 0.8rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      transition: color 0.3s;
-      position: relative;
-    }
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: -4px; left: 0;
-      width: 0; height: 1px;
-      background: var(--gold);
-      transition: width 0.3s;
-    }
-    .nav-links a:hover { color: var(--gold-light); }
-    .nav-links a:hover::after { width: 100%; }
-    .nav-cta {
-      padding: 10px 24px;
-      border: 1px solid var(--gold);
-      color: var(--gold-light);
-      text-decoration: none;
+    .nav-center a {
       font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      transition: all 0.3s;
-      position: relative;
-      overflow: hidden;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--ink-2);
+      text-decoration: none;
+      transition: color 0.25s;
     }
-    .nav-cta::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: var(--gold);
-      transform: translateX(-100%);
-      transition: transform 0.3s ease;
-      z-index: -1;
-    }
-    .nav-cta:hover { color: var(--dark); }
-    .nav-cta:hover::before { transform: translateX(0); }
-
-    /* ── Hero ── */
-    .hero {
-      position: relative;
-      z-index: 1;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+    .nav-center a:hover { color: var(--accent); }
+    .nav-btn {
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 120px 40px 80px;
-      overflow: hidden;
+      gap: 8px;
+      padding: 10px 22px;
+      background: var(--ink);
+      color: var(--white);
+      border-radius: 100px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      transition: all 0.3s;
     }
+    .nav-btn:hover { background: var(--accent); transform: translateY(-1px); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { display: block; width: 22px; height: 1.5px; background: var(--ink); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      padding: 140px 56px 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      max-width: 1440px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .hero-left {}
     .hero-tag {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      padding: 8px 20px;
-      border: 1px solid var(--glass-border);
-      background: var(--glass);
-      backdrop-filter: blur(10px);
+      gap: 8px;
+      padding: 6px 16px;
+      background: var(--cream);
+      border: 1px solid #f0dfc4;
       border-radius: 100px;
-      font-size: 0.72rem;
-      font-weight: 500;
+      font-size: 0.68rem;
+      font-weight: 600;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--gold-light);
-      margin-bottom: 40px;
-      animation: fadeUp 1s ease 0.2s both;
+      color: var(--accent);
+      margin-bottom: 32px;
+      animation: fadeUp 0.8s ease 0.1s both;
     }
     .hero-tag .dot {
-      width: 6px; height: 6px;
-      background: var(--gold);
+      width: 5px; height: 5px;
+      background: var(--accent);
       border-radius: 50%;
-      animation: pulse 2s infinite;
+      animation: blink 2s infinite;
     }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(0.8); }
-    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
     .hero-title {
-      font-family: 'Playfair Display', 'Noto Sans JP', serif;
-      font-size: clamp(3rem, 7vw, 6.5rem);
-      font-weight: 700;
-      line-height: 1.1;
+      font-family: 'DM Serif Display', 'Noto Sans JP', serif;
+      font-size: clamp(3rem, 5.5vw, 5.5rem);
+      line-height: 1.08;
       letter-spacing: -0.02em;
-      animation: fadeUp 1s ease 0.4s both;
-      margin-bottom: 16px;
+      margin-bottom: 28px;
+      animation: fadeUp 0.8s ease 0.2s both;
     }
-    .hero-title .line-gold {
-      background: linear-gradient(135deg, var(--gold-dark), var(--gold-light), var(--gold-dark));
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: fadeUp 1s ease 0.4s both, shimmer 4s linear infinite;
+    .hero-title em {
+      font-style: italic;
+      color: var(--accent);
     }
-    @keyframes shimmer {
-      0% { background-position: 0% center; }
-      100% { background-position: 200% center; }
-    }
-    .hero-sub {
-      font-family: 'Noto Sans JP', sans-serif;
-      font-size: clamp(0.9rem, 2vw, 1.1rem);
+    .hero-title .ja {
+      display: block;
+      font-family: 'Noto Sans JP', serif;
+      font-size: 0.42em;
       font-weight: 300;
-      color: var(--text-muted);
-      letter-spacing: 0.2em;
-      margin-bottom: 60px;
-      animation: fadeUp 1s ease 0.6s both;
-    }
-    .hero-btns {
-      display: flex;
-      gap: 16px;
-      justify-content: center;
-      flex-wrap: wrap;
-      animation: fadeUp 1s ease 0.8s both;
-    }
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 16px 40px;
-      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
-      color: var(--dark);
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 0.85rem;
+      color: var(--muted);
       letter-spacing: 0.12em;
-      text-transform: uppercase;
-      border-radius: 4px;
-      transition: all 0.3s;
-      box-shadow: 0 8px 32px rgba(201,168,76,0.3);
+      margin-top: 12px;
+      font-style: normal;
     }
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 16px 48px rgba(201,168,76,0.45);
+    .hero-desc {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 0.95rem;
+      color: var(--ink-2);
+      font-weight: 300;
+      line-height: 2;
+      max-width: 480px;
+      margin-bottom: 44px;
+      animation: fadeUp 0.8s ease 0.35s both;
     }
-    .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 16px 40px;
-      border: 1px solid var(--glass-border);
-      background: var(--glass);
-      backdrop-filter: blur(10px);
-      color: var(--text);
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 0.85rem;
-      letter-spacing: 0.08em;
-      border-radius: 4px;
-      transition: all 0.3s;
-    }
-    .btn-secondary:hover {
-      border-color: var(--gold);
-      color: var(--gold-light);
-      transform: translateY(-2px);
-    }
-    .hero-scroll {
-      position: absolute;
-      bottom: 40px;
-      left: 50%;
-      transform: translateX(-50%);
+    .hero-actions {
       display: flex;
-      flex-direction: column;
+      gap: 14px;
+      flex-wrap: wrap;
+      animation: fadeUp 0.8s ease 0.45s both;
+    }
+    .btn-fill {
+      display: inline-flex;
       align-items: center;
       gap: 8px;
-      animation: fadeUp 1s ease 1.2s both;
+      padding: 14px 32px;
+      background: var(--ink);
+      color: var(--white);
+      border-radius: 100px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      transition: all 0.3s;
     }
-    .hero-scroll span {
-      font-size: 0.65rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--text-muted);
+    .btn-fill:hover { background: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,92,53,0.3); }
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      border: 1.5px solid var(--line);
+      color: var(--ink);
+      border-radius: 100px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      transition: all 0.3s;
     }
-    .scroll-line {
-      width: 1px;
-      height: 50px;
-      background: linear-gradient(to bottom, var(--gold), transparent);
-      animation: scrollLine 2s ease-in-out infinite;
-    }
-    @keyframes scrollLine {
-      0% { transform: scaleY(0); transform-origin: top; }
-      50% { transform: scaleY(1); transform-origin: top; }
-      51% { transform: scaleY(1); transform-origin: bottom; }
-      100% { transform: scaleY(0); transform-origin: bottom; }
-    }
+    .btn-outline:hover { border-color: var(--ink); transform: translateY(-2px); }
 
-    /* ── Stats Bar ── */
-    .stats-bar {
+    .hero-right {
+      position: relative;
+      animation: fadeUp 0.8s ease 0.3s both;
+    }
+    .hero-visual {
+      background: var(--cream);
+      border-radius: 24px;
+      aspect-ratio: 4/5;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 40px;
+    }
+    .hero-visual-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 60% at 70% 30%, rgba(255,92,53,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 20% 80%, rgba(0,87,255,0.08) 0%, transparent 60%),
+        linear-gradient(160deg, #fff8f2 0%, #fdf0e4 100%);
+    }
+    .hero-shape {
+      position: absolute;
+      top: 40px; right: 40px;
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), #ff8a70);
+      opacity: 0.18;
+    }
+    .hero-shape-2 {
+      position: absolute;
+      top: 80px; left: 40px;
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      background: var(--accent-2);
+      opacity: 0.1;
+    }
+    .hero-visual-text {
       position: relative;
       z-index: 1;
-      background: var(--glass);
-      border-top: 1px solid var(--glass-border);
-      border-bottom: 1px solid var(--glass-border);
-      backdrop-filter: blur(20px);
-      padding: 40px 60px;
+    }
+    .hero-visual-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .hero-visual-headline {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.2rem;
+      line-height: 1.2;
+      color: var(--ink);
+      margin-bottom: 20px;
+    }
+    .hero-visual-stats {
+      display: flex;
+      gap: 24px;
+    }
+    .hvs-item { }
+    .hvs-num {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--ink);
+      line-height: 1;
+    }
+    .hvs-num span { font-size: 0.8rem; font-weight: 500; }
+    .hvs-label {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 0.66rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+    .hero-float-tag {
+      position: absolute;
+      top: 32px;
+      left: -24px;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px 20px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+      animation: float 4s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)}
+    }
+    .hft-label { font-size: 0.6rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; }
+    .hft-value { font-size: 0.88rem; font-weight: 700; color: var(--ink); }
+    .hero-float-tag-2 {
+      position: absolute;
+      bottom: 60px;
+      right: -28px;
+      background: var(--accent);
+      border-radius: 12px;
+      padding: 14px 20px;
+      box-shadow: 0 8px 32px rgba(255,92,53,0.25);
+      animation: float 4s ease-in-out 2s infinite;
+    }
+    .hft2-label { font-size: 0.6rem; color: rgba(255,255,255,0.7); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; }
+    .hft2-value { font-size: 0.88rem; font-weight: 700; color: white; }
+
+    /* ── TICKER ── */
+    .ticker {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      overflow: hidden;
+      white-space: nowrap;
+      padding: 14px 0;
+      background: var(--white);
+    }
+    .ticker-inner {
+      display: inline-flex;
+      gap: 48px;
+      animation: ticker 20s linear infinite;
+    }
+    @keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+    .ticker-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .ticker-item .sep {
+      width: 4px; height: 4px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    /* ── SECTION COMMON ── */
+    .section-wrap {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 120px 56px;
+    }
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1.5px;
+      background: var(--accent);
+    }
+    .section-title {
+      font-family: 'DM Serif Display', 'Noto Sans JP', serif;
+      font-size: clamp(2.2rem, 4vw, 3.8rem);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+    .section-title em { font-style: italic; color: var(--accent); }
+
+    /* ── ABOUT ── */
+    .about-bg { background: var(--white); }
+    .about-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: start;
+    }
+    .about-left {}
+    .about-desc {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 0.95rem;
+      color: var(--ink-2);
+      font-weight: 300;
+      line-height: 2.1;
+      margin-top: 28px;
+      margin-bottom: 40px;
+    }
+    .about-kv {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .kv-item {
+      padding: 20px 24px;
+      background: var(--bg);
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      transition: all 0.3s;
+    }
+    .kv-item:hover { border-color: var(--accent); background: var(--cream); transform: translateY(-2px); }
+    .kv-label {
+      font-size: 0.64rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .kv-value {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .about-right {}
+
+    /* Company Table */
+    .company-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    .company-table tr {
+      border-bottom: 1px solid var(--line);
+    }
+    .company-table tr:first-child { border-top: 1px solid var(--line); }
+    .company-table td {
+      padding: 18px 0;
+      vertical-align: top;
+    }
+    .company-table td:first-child {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      width: 36%;
+      padding-right: 20px;
+      white-space: nowrap;
+    }
+    .company-table td:last-child {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 0.88rem;
+      color: var(--ink-2);
+      font-weight: 400;
+      line-height: 1.8;
+    }
+    .company-table td .license-tag {
+      display: inline-block;
+      padding: 2px 10px;
+      background: var(--mint);
+      border-radius: 4px;
+      font-size: 0.7rem;
+      color: #1a7a5e;
+      font-weight: 600;
+      margin: 2px 4px 2px 0;
+    }
+
+    /* ── SERVICES ── */
+    .services-bg { background: var(--bg); }
+    .services-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: end;
+      margin-bottom: 64px;
+    }
+    .services-header-right {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 0.9rem;
+      color: var(--ink-2);
+      font-weight: 300;
+      line-height: 2;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .svc-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 36px;
+      transition: all 0.35s ease;
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .svc-card.visible { opacity: 1; transform: translateY(0); }
+    .svc-card:hover {
+      border-color: transparent;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+      transform: translateY(-6px);
+    }
+    .svc-card:hover .svc-arrow { transform: translate(3px, -3px); }
+    .svc-card.accent-card {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .svc-card.accent-card .svc-num,
+    .svc-card.accent-card .svc-title,
+    .svc-card.accent-card .svc-desc { color: white; }
+    .svc-card.accent-card .svc-arrow { color: rgba(255,255,255,0.7); }
+    .svc-card.accent-card:hover { box-shadow: 0 20px 60px rgba(255,92,53,0.35); }
+    .svc-card.blue-card {
+      background: var(--accent-2);
+      border-color: var(--accent-2);
+    }
+    .svc-card.blue-card .svc-num,
+    .svc-card.blue-card .svc-title,
+    .svc-card.blue-card .svc-desc { color: white; }
+    .svc-card.blue-card .svc-arrow { color: rgba(255,255,255,0.7); }
+    .svc-card.blue-card:hover { box-shadow: 0 20px 60px rgba(0,87,255,0.3); }
+    .svc-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 28px;
+    }
+    .svc-icon {
+      width: 48px; height: 48px;
+      background: var(--bg);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+    }
+    .svc-card.accent-card .svc-icon,
+    .svc-card.blue-card .svc-icon { background: rgba(255,255,255,0.2); }
+    .svc-arrow {
+      color: var(--line);
+      font-size: 1.3rem;
+      transition: transform 0.3s;
+    }
+    .svc-num {
+      font-size: 0.64rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .svc-title {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 12px;
+    }
+    .svc-desc {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 0.78rem;
+      color: var(--ink-2);
+      font-weight: 300;
+      line-height: 1.9;
+    }
+    .svc-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 20px;
+    }
+    .svc-tag {
+      padding: 4px 12px;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 100px;
+      font-size: 0.64rem;
+      font-weight: 600;
+      color: var(--ink-2);
+    }
+    .svc-card.accent-card .svc-tag {
+      background: rgba(255,255,255,0.2);
+      border-color: rgba(255,255,255,0.3);
+      color: white;
+    }
+    .svc-card.blue-card .svc-tag {
+      background: rgba(255,255,255,0.2);
+      border-color: rgba(255,255,255,0.3);
+      color: white;
+    }
+
+    /* ── STATS STRIP ── */
+    .stats-strip {
+      background: var(--ink);
+      padding: 64px 56px;
+    }
+    .stats-strip-inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
       gap: 1px;
     }
     .stat-item {
       text-align: center;
-      padding: 20px;
+      padding: 16px 20px;
       opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.6s ease;
+      transform: translateY(16px);
+      transition: all 0.5s ease;
     }
     .stat-item.visible { opacity: 1; transform: translateY(0); }
     .stat-num {
-      font-family: 'Inter', sans-serif;
-      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-size: clamp(2rem, 3.5vw, 3rem);
       font-weight: 900;
-      background: linear-gradient(135deg, var(--gold), var(--gold-light));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--white);
       line-height: 1;
       margin-bottom: 8px;
     }
+    .stat-num .accent { color: var(--accent); }
     .stat-label {
       font-family: 'Noto Sans JP', sans-serif;
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      font-weight: 300;
-      letter-spacing: 0.1em;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.08em;
     }
 
-    /* ── Section Common ── */
-    section {
-      position: relative;
-      z-index: 1;
-    }
-    .section-header {
-      text-align: center;
-      margin-bottom: 70px;
-    }
-    .section-tag {
-      display: inline-block;
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 16px;
-    }
-    .section-title {
-      font-family: 'Playfair Display', 'Noto Sans JP', serif;
-      font-size: clamp(2rem, 4vw, 3.2rem);
-      font-weight: 700;
-      line-height: 1.2;
-      margin-bottom: 20px;
-    }
-    .section-desc {
-      font-family: 'Noto Sans JP', sans-serif;
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      font-weight: 300;
-      max-width: 600px;
-      margin: 0 auto;
-      line-height: 2;
-    }
-    .divider {
-      width: 60px;
-      height: 2px;
-      background: linear-gradient(to right, transparent, var(--gold), transparent);
-      margin: 24px auto 0;
-    }
-
-    /* ── About ── */
-    .about {
-      padding: 120px 60px;
-      max-width: 1400px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 100px;
-      align-items: center;
-    }
-    .about-visual {
-      position: relative;
-    }
-    .about-card {
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      backdrop-filter: blur(20px);
-      border-radius: 16px;
-      overflow: hidden;
-      aspect-ratio: 4/3;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-    .about-card-inner {
-      text-align: center;
-      padding: 40px;
-    }
-    .about-card-icon {
-      font-size: 4rem;
-      margin-bottom: 20px;
-      filter: drop-shadow(0 0 30px rgba(201,168,76,0.5));
-    }
-    .about-card h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 2rem;
-      color: var(--gold-light);
-      margin-bottom: 10px;
-    }
-    .about-card p {
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      font-family: 'Noto Sans JP', sans-serif;
-    }
-    .about-badge {
-      position: absolute;
-      bottom: -20px;
-      right: -20px;
-      width: 120px;
-      height: 120px;
-      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
-      border-radius: 50%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 8px 32px rgba(201,168,76,0.4);
-    }
-    .about-badge .badge-num {
-      font-size: 2rem;
-      font-weight: 900;
-      color: var(--dark);
-      line-height: 1;
-    }
-    .about-badge .badge-text {
-      font-size: 0.55rem;
-      font-weight: 700;
-      color: var(--dark);
-      letter-spacing: 0.05em;
-    }
-    .about-content { padding: 20px 0; }
-    .about-content .tag {
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 24px;
-    }
-    .about-content h2 {
-      font-family: 'Playfair Display', 'Noto Sans JP', serif;
-      font-size: clamp(1.8rem, 3vw, 2.8rem);
-      font-weight: 700;
-      line-height: 1.3;
-      margin-bottom: 24px;
-    }
-    .about-content p {
-      font-family: 'Noto Sans JP', sans-serif;
-      color: var(--text-muted);
-      font-size: 0.92rem;
-      font-weight: 300;
-      line-height: 2;
-      margin-bottom: 16px;
-    }
-    .about-pillars {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 32px;
-    }
-    .pillar {
-      padding: 16px 20px;
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      border-left: 3px solid var(--gold);
-      border-radius: 4px;
-    }
-    .pillar-title {
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: var(--gold-light);
-      margin-bottom: 4px;
-    }
-    .pillar-desc {
-      font-family: 'Noto Sans JP', sans-serif;
-      font-size: 0.7rem;
-      color: var(--text-muted);
-      font-weight: 300;
-    }
-
-    /* ── Services ── */
-    .services {
-      padding: 120px 60px;
-      background: var(--dark-2);
-    }
-    .services-inner { max-width: 1400px; margin: 0 auto; }
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
-    .service-card {
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      backdrop-filter: blur(10px);
-      border-radius: 16px;
-      padding: 40px;
-      transition: all 0.4s ease;
-      cursor: default;
-      position: relative;
-      overflow: hidden;
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    .service-card.visible { opacity: 1; transform: translateY(0); }
-    .service-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(201,168,76,0.06), transparent);
-      opacity: 0;
-      transition: opacity 0.4s;
-    }
-    .service-card:hover::before { opacity: 1; }
-    .service-card:hover {
-      border-color: rgba(201,168,76,0.3);
-      transform: translateY(-8px);
-      box-shadow: 0 24px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(201,168,76,0.1);
-    }
-    .service-card.featured {
-      background: linear-gradient(135deg, rgba(201,168,76,0.12), rgba(201,168,76,0.04));
-      border-color: rgba(201,168,76,0.25);
-      grid-row: span 1;
-    }
-    .service-icon {
-      width: 56px;
-      height: 56px;
-      background: linear-gradient(135deg, rgba(201,168,76,0.2), rgba(201,168,76,0.05));
-      border: 1px solid rgba(201,168,76,0.2);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.6rem;
-      margin-bottom: 28px;
-    }
-    .service-num {
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.3em;
-      color: var(--gold);
-      margin-bottom: 12px;
-    }
-    .service-title {
-      font-family: 'Noto Sans JP', sans-serif;
-      font-size: 1.2rem;
-      font-weight: 700;
-      margin-bottom: 16px;
-    }
-    .service-desc {
-      font-family: 'Noto Sans JP', sans-serif;
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      font-weight: 300;
-      line-height: 2;
-      margin-bottom: 24px;
-    }
-    .service-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .service-tag {
-      padding: 4px 12px;
-      background: rgba(201,168,76,0.08);
-      border: 1px solid rgba(201,168,76,0.15);
-      border-radius: 100px;
-      font-size: 0.68rem;
-      color: var(--gold-light);
-      font-weight: 500;
-      letter-spacing: 0.05em;
-    }
-
-    /* ── Features / Why ── */
-    .features {
-      padding: 120px 60px;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
+    /* ── FEATURES ── */
+    .features-bg { background: var(--cream); }
     .features-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 32px;
-      margin-top: 70px;
+      margin-top: 64px;
     }
-    .feature-item {
-      text-align: center;
+    .feat-item {
       opacity: 0;
       transform: translateY(20px);
       transition: all 0.6s ease;
     }
-    .feature-item.visible { opacity: 1; transform: translateY(0); }
-    .feature-icon {
-      width: 80px;
-      height: 80px;
-      margin: 0 auto 24px;
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
-      position: relative;
+    .feat-item.visible { opacity: 1; transform: translateY(0); }
+    .feat-num {
+      font-size: 3.5rem;
+      font-weight: 900;
+      color: var(--line);
+      line-height: 1;
+      margin-bottom: 16px;
+      font-family: 'Inter', sans-serif;
     }
-    .feature-icon::after {
-      content: '';
-      position: absolute;
-      inset: -4px;
-      border-radius: 50%;
-      background: conic-gradient(var(--gold) 0deg, transparent 90deg);
-      z-index: -1;
-      animation: spin 6s linear infinite;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .feature-title {
+    .feat-title {
       font-family: 'Noto Sans JP', sans-serif;
-      font-size: 0.95rem;
+      font-size: 1rem;
       font-weight: 700;
-      margin-bottom: 12px;
+      color: var(--ink);
+      margin-bottom: 10px;
     }
-    .feature-desc {
+    .feat-desc {
       font-family: 'Noto Sans JP', sans-serif;
       font-size: 0.78rem;
-      color: var(--text-muted);
+      color: var(--ink-2);
       font-weight: 300;
       line-height: 1.9;
     }
 
-    /* ── Message ── */
-    .message {
-      padding: 120px 60px;
-      background: var(--dark-2);
-    }
+    /* ── MESSAGE ── */
+    .message-bg { background: var(--white); }
     .message-inner {
-      max-width: 900px;
-      margin: 0 auto;
-      text-align: center;
+      display: grid;
+      grid-template-columns: 5fr 4fr;
+      gap: 80px;
+      align-items: center;
     }
-    .message-quote {
-      font-size: 3rem;
-      color: var(--gold);
-      line-height: 1;
-      margin-bottom: 32px;
-      font-family: serif;
+    .message-left {}
+    blockquote {
+      font-family: 'DM Serif Display', 'Noto Sans JP', serif;
+      font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+      line-height: 1.65;
+      color: var(--ink);
+      border-left: 3px solid var(--accent);
+      padding-left: 32px;
+      margin: 28px 0 36px;
     }
-    .message-text {
-      font-family: 'Playfair Display', 'Noto Sans JP', serif;
-      font-size: clamp(1.4rem, 3vw, 2.2rem);
-      font-weight: 400;
-      line-height: 1.8;
-      margin-bottom: 48px;
-      color: var(--text);
-    }
-    .message-text em {
-      font-style: normal;
-      color: var(--gold-light);
-    }
+    blockquote em { font-style: italic; color: var(--accent); }
     .message-author {
       display: flex;
-      flex-direction: column;
       align-items: center;
-      gap: 6px;
+      gap: 16px;
+      margin-top: 32px;
     }
-    .message-author .role {
-      font-size: 0.7rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-    }
-    .message-author .name {
-      font-family: 'Noto Sans JP', sans-serif;
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--gold-light);
-    }
-    .message-author .name-en {
-      font-size: 0.75rem;
-      letter-spacing: 0.15em;
-      color: var(--text-muted);
-    }
-
-    /* ── News ── */
-    .news {
-      padding: 120px 60px;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-    .news-list {
+    .author-avatar {
+      width: 52px; height: 52px;
+      background: linear-gradient(135deg, var(--accent), #ff8a70);
+      border-radius: 50%;
       display: flex;
-      flex-direction: column;
-      gap: 0;
-      margin-top: 70px;
-      border: 1px solid var(--glass-border);
-      border-radius: 12px;
-      overflow: hidden;
-    }
-    .news-item {
-      display: grid;
-      grid-template-columns: 140px 80px 1fr auto;
-      align-items: center;
-      gap: 24px;
-      padding: 24px 32px;
-      border-bottom: 1px solid var(--glass-border);
-      transition: background 0.3s;
-      text-decoration: none;
-      color: inherit;
-    }
-    .news-item:last-child { border-bottom: none; }
-    .news-item:hover { background: var(--glass); }
-    .news-date {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      font-weight: 500;
-      letter-spacing: 0.05em;
-    }
-    .news-category {
-      display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 4px 14px;
-      background: rgba(201,168,76,0.1);
-      border: 1px solid rgba(201,168,76,0.2);
-      border-radius: 100px;
-      font-size: 0.65rem;
-      font-weight: 600;
-      color: var(--gold-light);
-      letter-spacing: 0.05em;
-    }
-    .news-title {
-      font-family: 'Noto Sans JP', sans-serif;
-      font-size: 0.88rem;
-      font-weight: 400;
-    }
-    .news-arrow {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      transition: all 0.3s;
-    }
-    .news-item:hover .news-arrow {
-      color: var(--gold);
-      transform: translateX(4px);
-    }
-
-    /* ── Contact ── */
-    .contact {
-      padding: 120px 60px;
-      background: var(--dark-3);
-    }
-    .contact-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: start;
-    }
-    .contact-info .tag {
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 20px;
-    }
-    .contact-info h2 {
-      font-family: 'Playfair Display', 'Noto Sans JP', serif;
-      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      color: white;
       font-weight: 700;
-      line-height: 1.3;
+      font-size: 1.1rem;
+    }
+    .author-name {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+    .author-role {
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+    .message-right {
+      background: var(--cream);
+      border-radius: 20px;
+      padding: 40px;
+    }
+    .message-right h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem;
       margin-bottom: 24px;
     }
-    .contact-info p {
-      font-family: 'Noto Sans JP', sans-serif;
-      color: var(--text-muted);
-      font-size: 0.88rem;
-      font-weight: 300;
-      line-height: 2;
-      margin-bottom: 40px;
+    .mission-items {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
     }
-    .contact-details {
+    .mission-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .mission-icon {
+      width: 32px; height: 32px;
+      background: var(--white);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+      border: 1px solid var(--line);
+    }
+    .mission-text {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 400;
+      color: var(--ink-2);
+      line-height: 1.7;
+      padding-top: 6px;
+    }
+
+    /* ── NEWS ── */
+    .news-bg { background: var(--bg); }
+    .news-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 48px;
+    }
+    .news-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1.5px solid var(--ink);
+      padding-bottom: 4px;
+      transition: color 0.3s;
+    }
+    .news-more:hover { color: var(--accent); border-color: var(--accent); }
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    .news-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 28px 32px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.3s;
+    }
+    .news-card:hover {
+      border-color: var(--accent);
+      transform: translateX(4px);
+    }
+    .news-card:hover .nc-arrow { transform: translate(4px, -4px); color: var(--accent); }
+    .nc-date {
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .nc-cat {
+      padding: 3px 12px;
+      border-radius: 100px;
+      font-size: 0.62rem;
+      font-weight: 700;
+      background: var(--cream);
+      color: var(--accent);
+      white-space: nowrap;
+    }
+    .nc-title {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      flex: 1;
+    }
+    .nc-arrow {
+      color: var(--muted);
+      font-size: 1rem;
+      transition: all 0.3s;
+      flex-shrink: 0;
+    }
+
+    /* ── CONTACT ── */
+    .contact-bg { background: var(--ink); }
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: start;
+    }
+    .contact-left {}
+    .contact-left .section-label { color: var(--accent); }
+    .contact-left .section-label::before { background: var(--accent); }
+    .contact-left .section-title { color: var(--white); }
+    .contact-left .section-title em { color: var(--accent); }
+    .contact-desc {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.55);
+      font-weight: 300;
+      line-height: 2.1;
+      margin: 24px 0 40px;
+    }
+    .contact-list {
       display: flex;
       flex-direction: column;
       gap: 20px;
     }
-    .contact-detail-item {
+    .cl-item {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       gap: 16px;
     }
-    .contact-detail-icon {
-      width: 40px;
-      height: 40px;
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      border-radius: 8px;
+    .cl-icon {
+      width: 44px; height: 44px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 1rem;
       flex-shrink: 0;
     }
-    .contact-detail-label {
-      font-size: 0.68rem;
-      letter-spacing: 0.15em;
+    .cl-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 4px;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 3px;
     }
-    .contact-detail-value {
-      font-size: 0.9rem;
+    .cl-value {
+      font-size: 0.88rem;
       font-weight: 500;
+      color: rgba(255,255,255,0.85);
     }
+    .contact-right {}
     .contact-form {
+      background: var(--white);
+      border-radius: 24px;
+      padding: 44px;
       display: flex;
       flex-direction: column;
       gap: 20px;
     }
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .form-group label {
-      font-size: 0.72rem;
-      font-weight: 600;
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 8px; }
+    .form-label {
+      font-size: 0.68rem;
+      font-weight: 700;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--text-muted);
+      color: var(--muted);
     }
-    .form-group input,
-    .form-group textarea,
-    .form-group select {
-      padding: 14px 18px;
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      border-radius: 8px;
-      color: var(--text);
-      font-size: 0.88rem;
+    .form-label .req { color: var(--accent); margin-left: 3px; }
+    .form-input, .form-select, .form-textarea {
+      padding: 13px 16px;
+      background: var(--bg);
+      border: 1.5px solid var(--line);
+      border-radius: 10px;
+      font-size: 0.86rem;
       font-family: 'Noto Sans JP', sans-serif;
+      color: var(--ink);
       outline: none;
-      transition: border-color 0.3s;
+      transition: border-color 0.25s;
       -webkit-appearance: none;
     }
-    .form-group input:focus,
-    .form-group textarea:focus,
-    .form-group select:focus {
-      border-color: var(--gold);
-    }
-    .form-group textarea {
-      height: 120px;
-      resize: vertical;
-    }
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--accent); background: var(--white); }
+    .form-textarea { height: 110px; resize: vertical; }
     .form-submit {
-      padding: 16px 32px;
-      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
-      color: var(--dark);
+      padding: 16px;
+      background: var(--accent);
+      color: var(--white);
       border: none;
-      border-radius: 8px;
+      border-radius: 100px;
+      font-size: 0.84rem;
       font-weight: 700;
-      font-size: 0.85rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+      letter-spacing: 0.1em;
       cursor: pointer;
       transition: all 0.3s;
-      box-shadow: 0 8px 32px rgba(201,168,76,0.25);
+      text-transform: uppercase;
     }
-    .form-submit:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 16px 48px rgba(201,168,76,0.4);
-    }
+    .form-submit:hover { background: #e04520; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,92,53,0.35); }
 
-    /* ── Footer ── */
+    /* ── FOOTER ── */
     footer {
-      position: relative;
-      z-index: 1;
-      background: var(--dark);
-      border-top: 1px solid var(--glass-border);
-      padding: 60px;
+      background: #0a0a0c;
+      border-top: 1px solid rgba(255,255,255,0.06);
     }
     .footer-inner {
-      max-width: 1400px;
+      max-width: 1440px;
       margin: 0 auto;
+      padding: 64px 56px 40px;
       display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
+      grid-template-columns: 2.5fr 1fr 1fr 1fr;
       gap: 60px;
-      margin-bottom: 48px;
+      margin-bottom: 0;
     }
-    .footer-brand .brand-en {
-      font-weight: 700;
-      font-size: 1.2rem;
-      letter-spacing: 0.15em;
-      color: var(--gold-light);
-      margin-bottom: 6px;
+    .footer-brand {}
+    .fb-en {
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: 0.08em;
+      color: var(--white);
+      margin-bottom: 4px;
     }
-    .footer-brand .brand-jp {
+    .fb-jp {
       font-family: 'Noto Sans JP', sans-serif;
-      font-size: 0.68rem;
-      color: var(--text-muted);
+      font-size: 0.6rem;
+      color: rgba(255,255,255,0.3);
       font-weight: 300;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
-    .footer-brand p {
+    .fb-desc {
       font-family: 'Noto Sans JP', sans-serif;
-      font-size: 0.78rem;
-      color: var(--text-muted);
+      font-size: 0.76rem;
+      color: rgba(255,255,255,0.35);
       font-weight: 300;
       line-height: 2;
     }
     .footer-col h4 {
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.2em;
+      font-size: 0.64rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
       text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 20px;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 18px;
     }
-    .footer-col ul {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
     .footer-col ul a {
       font-family: 'Noto Sans JP', sans-serif;
       font-size: 0.78rem;
-      color: var(--text-muted);
+      color: rgba(255,255,255,0.5);
       text-decoration: none;
       font-weight: 300;
-      transition: color 0.3s;
+      transition: color 0.25s;
     }
-    .footer-col ul a:hover { color: var(--gold-light); }
+    .footer-col ul a:hover { color: var(--white); }
     .footer-bottom {
-      max-width: 1400px;
+      max-width: 1440px;
       margin: 0 auto;
-      padding-top: 32px;
-      border-top: 1px solid var(--glass-border);
+      padding: 28px 56px;
+      border-top: 1px solid rgba(255,255,255,0.06);
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-    .footer-bottom p {
-      font-size: 0.72rem;
-      color: var(--text-muted);
-    }
-    .footer-bottom .commitment {
-      font-size: 0.72rem;
-      color: var(--gold-dark);
-      letter-spacing: 0.1em;
-    }
+    .footer-bottom p { font-size: 0.7rem; color: rgba(255,255,255,0.25); }
+    .footer-bottom .tagline { font-size: 0.7rem; color: rgba(255,92,53,0.5); letter-spacing: 0.12em; }
 
-    /* ── Animations ── */
+    /* ── ANIMATIONS ── */
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
     .reveal {
       opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s ease;
+      transform: translateY(24px);
+      transition: all 0.7s ease;
     }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
 
-    /* ── Hamburger (mobile) ── */
-    .nav-hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-    }
-    .nav-hamburger span {
-      display: block;
-      width: 24px;
-      height: 1.5px;
-      background: var(--text);
-      transition: all 0.3s;
-    }
-
-    /* ── Responsive ── */
+    /* ── RESPONSIVE ── */
     @media (max-width: 1100px) {
+      .hero { grid-template-columns: 1fr; gap: 48px; }
+      .hero-right { max-width: 500px; }
+      .about-grid { grid-template-columns: 1fr; gap: 60px; }
       .services-grid { grid-template-columns: repeat(2, 1fr); }
       .features-grid { grid-template-columns: repeat(2, 1fr); }
-      .footer-inner { grid-template-columns: 1fr 1fr; }
-    }
-    @media (max-width: 900px) {
-      nav { padding: 16px 24px; }
-      nav.scrolled { padding: 12px 24px; }
-      .nav-links, .nav-cta { display: none; }
-      .nav-hamburger { display: flex; }
-      .stats-bar { grid-template-columns: repeat(2, 1fr); padding: 32px 24px; }
-      .about { grid-template-columns: 1fr; gap: 60px; padding: 80px 24px; }
-      .services { padding: 80px 24px; }
-      .services-grid { grid-template-columns: 1fr; }
-      .features { padding: 80px 24px; }
-      .features-grid { grid-template-columns: repeat(2, 1fr); }
-      .message { padding: 80px 24px; }
-      .news { padding: 80px 24px; }
-      .news-item { grid-template-columns: 1fr; gap: 8px; padding: 20px; }
-      .news-arrow { display: none; }
-      .contact { padding: 80px 24px; }
+      .message-inner { grid-template-columns: 1fr; gap: 48px; }
       .contact-inner { grid-template-columns: 1fr; gap: 60px; }
-      footer { padding: 60px 24px; }
-      .footer-inner { grid-template-columns: 1fr; gap: 40px; }
-      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+      .stats-strip-inner { grid-template-columns: repeat(3, 1fr); }
     }
-    @media (max-width: 600px) {
-      .hero { padding: 100px 24px 80px; }
-      .features-grid { grid-template-columns: 1fr; }
+    @media (max-width: 768px) {
+      nav { padding: 0 24px; }
+      .nav-center, .nav-btn { display: none; }
+      .hamburger { display: flex; }
+      .section-wrap { padding: 80px 24px; }
+      .hero { padding: 100px 24px 60px; }
+      .services-grid, .features-grid { grid-template-columns: 1fr; }
+      .services-header { grid-template-columns: 1fr; gap: 24px; }
+      .news-grid { grid-template-columns: 1fr; }
+      .contact-form { padding: 28px; }
       .form-row { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr; gap: 32px; padding: 48px 24px 32px; }
+      .footer-bottom { flex-direction: column; gap: 10px; padding: 24px; text-align: center; }
+      .stats-strip { padding: 48px 24px; }
+      .stats-strip-inner { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+      .hero-float-tag, .hero-float-tag-2 { display: none; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Background Canvas -->
-  <canvas id="bg-canvas"></canvas>
-
-  <!-- Navigation -->
+  <!-- NAV -->
   <nav id="navbar">
-    <div class="nav-logo">
+    <a href="#" class="logo">
       <span class="logo-en">JRE Corporation</span>
       <span class="logo-jp">株式会社ジェイ・アール・イーコーポレイション</span>
-    </div>
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#message">Message</a></li>
-      <li><a href="#news">News</a></li>
-      <li><a href="#contact">Contact</a></li>
+    </a>
+    <ul class="nav-center">
+      <li><a href="#about">会社概要</a></li>
+      <li><a href="#services">事業内容</a></li>
+      <li><a href="#message">メッセージ</a></li>
+      <li><a href="#news">ニュース</a></li>
+      <li><a href="#contact">お問い合わせ</a></li>
     </ul>
-    <a href="#contact" class="nav-cta">お問い合わせ</a>
-    <div class="nav-hamburger" id="hamburger">
+    <a href="#contact" class="nav-btn">Contact →</a>
+    <div class="hamburger" id="hamburger">
       <span></span><span></span><span></span>
     </div>
   </nav>
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="hero-tag">
-      <span class="dot"></span>
-      Since 1988 · Osaka, Japan
-    </div>
-    <h1 class="hero-title">
-      未来を創造する。<br>
-      <span class="line-gold">人と共に生きる。</span>
-    </h1>
-    <p class="hero-sub">Commitment To Quality Service.</p>
-    <div class="hero-btns">
-      <a href="#services" class="btn-primary">
-        サービスを見る
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-      <a href="#about" class="btn-secondary">
-        会社について
-      </a>
-    </div>
-    <div class="hero-scroll">
-      <span>Scroll</span>
-      <div class="scroll-line"></div>
+  <!-- HERO -->
+  <section>
+    <div class="hero">
+      <div class="hero-left">
+        <div class="hero-tag">
+          <span class="dot"></span>
+          Osaka, Japan · Est. 1987
+        </div>
+        <h1 class="hero-title">
+          Commitment<br>
+          to <em>Quality</em><br>
+          Service.
+          <span class="ja">未来を創造する。人と共に生きる。</span>
+        </h1>
+        <p class="hero-desc">
+          1987年の創業以来、不動産・自動車・資産運用の領域で<br>
+          お客様の大切な資産をトータルサポート。<br>
+          37年の信頼と実績が、私たちの礎です。
+        </p>
+        <div class="hero-actions">
+          <a href="#services" class="btn-fill">事業内容を見る →</a>
+          <a href="#about" class="btn-outline">会社概要</a>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="hero-float-tag">
+          <div class="hft-label">本社所在地</div>
+          <div class="hft-value">大阪市天王寺区</div>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-visual-bg"></div>
+          <div class="hero-shape"></div>
+          <div class="hero-shape-2"></div>
+          <div class="hero-visual-text">
+            <div class="hero-visual-label">Total Asset Solutions</div>
+            <div class="hero-visual-headline">資産の未来を、<br>共に拓く。</div>
+            <div class="hero-visual-stats">
+              <div class="hvs-item">
+                <div class="hvs-num" id="count1">0<span>年</span></div>
+                <div class="hvs-label">創業からの実績</div>
+              </div>
+              <div class="hvs-item">
+                <div class="hvs-num">5<span>領域</span></div>
+                <div class="hvs-label">多角的な事業展開</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="hero-float-tag-2">
+          <div class="hft2-label">品質へのコミットメント</div>
+          <div class="hft2-value">AAA Quality ✓</div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Stats -->
-  <div class="stats-bar" id="stats">
-    <div class="stat-item">
-      <div class="stat-num" data-target="37">0</div>
-      <div class="stat-label">年の実績</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num" data-target="5">0</div>
-      <div class="stat-label">事業領域</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num">AAA</div>
-      <div class="stat-label">品質へのコミットメント</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num">大阪</div>
-      <div class="stat-label">天王寺区 本社</div>
+  <!-- TICKER -->
+  <div class="ticker">
+    <div class="ticker-inner" id="tickerInner">
+      <span class="ticker-item">不動産売買 <span class="sep"></span></span>
+      <span class="ticker-item">賃貸管理 <span class="sep"></span></span>
+      <span class="ticker-item">自動車販売 <span class="sep"></span></span>
+      <span class="ticker-item">レンタカー <span class="sep"></span></span>
+      <span class="ticker-item">資産運用 <span class="sep"></span></span>
+      <span class="ticker-item">損害保険代理 <span class="sep"></span></span>
+      <span class="ticker-item">住宅宿泊事業 <span class="sep"></span></span>
+      <span class="ticker-item">美容・飲食 <span class="sep"></span></span>
+      <span class="ticker-item">インターネット広告 <span class="sep"></span></span>
+      <span class="ticker-item">不動産売買 <span class="sep"></span></span>
+      <span class="ticker-item">賃貸管理 <span class="sep"></span></span>
+      <span class="ticker-item">自動車販売 <span class="sep"></span></span>
+      <span class="ticker-item">レンタカー <span class="sep"></span></span>
+      <span class="ticker-item">資産運用 <span class="sep"></span></span>
+      <span class="ticker-item">損害保険代理 <span class="sep"></span></span>
+      <span class="ticker-item">住宅宿泊事業 <span class="sep"></span></span>
+      <span class="ticker-item">美容・飲食 <span class="sep"></span></span>
+      <span class="ticker-item">インターネット広告 <span class="sep"></span></span>
     </div>
   </div>
 
-  <!-- About -->
-  <section class="about" id="about">
-    <div class="about-visual reveal">
-      <div class="about-card">
-        <div class="about-card-inner">
-          <div class="about-card-icon">🏛️</div>
-          <h3>JRE Corp.</h3>
-          <p>不動産・自動車・資産運用のエキスパート</p>
+  <!-- ABOUT -->
+  <section class="about-bg" id="about">
+    <div class="section-wrap">
+      <div class="about-grid">
+        <div class="about-left reveal">
+          <div class="section-label">About Us</div>
+          <h2 class="section-title">大阪発、<br>全国へ。<em>37年</em>の信頼。</h2>
+          <p class="about-desc">
+            株式会社ジェイ・アール・イーコーポレイションは、昭和62年（1987年）9月の設立以来、
+            大阪市天王寺区を拠点に不動産・自動車・資産運用など多角的な事業を展開してきました。<br><br>
+            "Commitment To Quality Service." ── この言葉を体現すべく、
+            グローバルな視点で常に市場を監視しながら、お客様の資産を守り、共に成長するパートナーであり続けます。
+          </p>
+          <div class="about-kv">
+            <div class="kv-item">
+              <div class="kv-label">設立</div>
+              <div class="kv-value">昭和62年9月10日</div>
+            </div>
+            <div class="kv-item">
+              <div class="kv-label">資本金</div>
+              <div class="kv-value">1,000万円</div>
+            </div>
+            <div class="kv-item">
+              <div class="kv-label">代表取締役</div>
+              <div class="kv-value">村上 直樹</div>
+            </div>
+            <div class="kv-item">
+              <div class="kv-label">主要取引銀行</div>
+              <div class="kv-value">りそな銀行 他</div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="about-badge">
-        <span class="badge-num">37</span>
-        <span class="badge-text">YEARS</span>
-      </div>
-    </div>
-    <div class="about-content reveal">
-      <div class="tag">About Us</div>
-      <h2>グローバルな視点で、<br>資産の未来を拓く</h2>
-      <p>
-        株式会社ジェイ・アール・イーコーポレイションは、1988年の創業以来37年にわたり、
-        不動産・自動車・資産運用の分野で大阪を拠点に事業を展開してまいりました。
-      </p>
-      <p>
-        常に市場を監視し、変化する時代の中でお客様の資産を守り、育てていく。
-        それが私たちの揺るぎないコミットメントです。
-      </p>
-      <div class="about-pillars">
-        <div class="pillar">
-          <div class="pillar-title">不動産事業</div>
-          <div class="pillar-desc">売買・賃貸・管理・仲介</div>
-        </div>
-        <div class="pillar">
-          <div class="pillar-title">自動車事業</div>
-          <div class="pillar-desc">販売・レンタカー</div>
-        </div>
-        <div class="pillar">
-          <div class="pillar-title">資産運用</div>
-          <div class="pillar-desc">有価証券・保険代理</div>
-        </div>
-        <div class="pillar">
-          <div class="pillar-title">その他事業</div>
-          <div class="pillar-desc">広告・美容・飲食</div>
+        <div class="about-right reveal">
+          <div class="section-label">Company Profile</div>
+          <table class="company-table">
+            <tr>
+              <td>会社名</td>
+              <td>株式会社ジェイ・アール・イーコーポレイション<br><small style="color:var(--muted);font-size:0.75rem;">Jre Corporation Co., Ltd.</small></td>
+            </tr>
+            <tr>
+              <td>設立年月日</td>
+              <td>昭和62年9月10日（1987年）</td>
+            </tr>
+            <tr>
+              <td>資本金</td>
+              <td>1,000万円</td>
+            </tr>
+            <tr>
+              <td>代表者</td>
+              <td>代表取締役　村上 直樹</td>
+            </tr>
+            <tr>
+              <td>所在地</td>
+              <td>〒543-0052<br>大阪市天王寺区大道4丁目5番9号<br>TEL: 06-6777-2775　FAX: 06-6777-2779</td>
+            </tr>
+            <tr>
+              <td>法人番号</td>
+              <td>7120001085526</td>
+            </tr>
+            <tr>
+              <td>インボイス登録</td>
+              <td>T7120001085526</td>
+            </tr>
+            <tr>
+              <td>主要許認可</td>
+              <td>
+                <span class="license-tag">宅建業免許</span>
+                <span class="license-tag">住宅宿泊管理業</span>
+                <span class="license-tag">古物商許可</span>
+                <span class="license-tag">陸運局交付 第0291号</span>
+              </td>
+            </tr>
+            <tr>
+              <td>取引銀行</td>
+              <td>りそな銀行 北浜支店<br>PayPay銀行 すずめ支店</td>
+            </tr>
+          </table>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Services -->
-  <section class="services" id="services">
-    <div class="services-inner">
-      <div class="section-header reveal">
-        <div class="section-tag">Our Services</div>
-        <h2 class="section-title">多様な事業領域で、<br>お客様の期待を超える</h2>
-        <div class="divider"></div>
-        <p class="section-desc">
-          37年の知見と経験を活かし、不動産から自動車、資産運用まで<br>
-          ワンストップでお客様の課題を解決します。
+  <!-- SERVICES -->
+  <section class="services-bg" id="services">
+    <div class="section-wrap">
+      <div class="services-header reveal">
+        <div>
+          <div class="section-label">Services</div>
+          <h2 class="section-title">多角的な事業で、<br><em>ワンストップ</em>対応。</h2>
+        </div>
+        <p class="services-header-right">
+          不動産から自動車、資産運用まで。<br>
+          お客様のニーズに合わせた最適なソリューションを<br>
+          37年の知見とネットワークでご提供します。
         </p>
       </div>
       <div class="services-grid">
-        <div class="service-card featured">
-          <div class="service-icon">🏠</div>
-          <div class="service-num">01</div>
-          <div class="service-title">不動産事業</div>
-          <p class="service-desc">
-            物件の売買・賃貸・管理・仲介斡旋まで、不動産に関するあらゆるニーズにトータルでお応えします。豊富な実績と地域密着のネットワークで最適な物件をご提案。
-          </p>
-          <div class="service-tags">
-            <span class="service-tag">売買</span>
-            <span class="service-tag">賃貸</span>
-            <span class="service-tag">管理</span>
-            <span class="service-tag">仲介斡旋</span>
+        <div class="svc-card accent-card">
+          <div class="svc-top">
+            <div class="svc-icon">🏠</div>
+            <span class="svc-arrow">↗</span>
+          </div>
+          <div class="svc-num">01</div>
+          <div class="svc-title">不動産事業</div>
+          <p class="svc-desc">物件の売買・賃貸・管理・仲介斡旋まで不動産に関するあらゆるニーズに対応。大阪府知事免許（令和5年9月〜）のもと、豊富な実績でご支援します。</p>
+          <div class="svc-tags">
+            <span class="svc-tag">売買</span>
+            <span class="svc-tag">賃貸</span>
+            <span class="svc-tag">管理</span>
+            <span class="svc-tag">仲介斡旋</span>
           </div>
         </div>
-        <div class="service-card">
-          <div class="service-icon">🚗</div>
-          <div class="service-num">02</div>
-          <div class="service-title">自動車事業</div>
-          <p class="service-desc">
-            自動車の販売からレンタカー事業まで、お客様のモビリティライフを幅広くサポートします。
-          </p>
-          <div class="service-tags">
-            <span class="service-tag">車両販売</span>
-            <span class="service-tag">レンタカー</span>
+        <div class="svc-card">
+          <div class="svc-top">
+            <div class="svc-icon">🚗</div>
+            <span class="svc-arrow">↗</span>
+          </div>
+          <div class="svc-num">02</div>
+          <div class="svc-title">自動車事業</div>
+          <p class="svc-desc">大阪陸運局交付（第0291号）のもと、自動車販売からレンタカー事業まで幅広く展開。古物商許可も取得し安心の取引をサポートします。</p>
+          <div class="svc-tags">
+            <span class="svc-tag">車両販売</span>
+            <span class="svc-tag">レンタカー</span>
+            <span class="svc-tag">古物商</span>
           </div>
         </div>
-        <div class="service-card">
-          <div class="service-icon">📈</div>
-          <div class="service-num">03</div>
-          <div class="service-title">資産運用・保険</div>
-          <p class="service-desc">
-            有価証券投資や損害保険代理業を通じて、お客様の大切な資産を守りながら着実に増やすソリューションをご提供します。
-          </p>
-          <div class="service-tags">
-            <span class="service-tag">有価証券</span>
-            <span class="service-tag">損害保険代理</span>
+        <div class="svc-card">
+          <div class="svc-top">
+            <div class="svc-icon">📈</div>
+            <span class="svc-arrow">↗</span>
+          </div>
+          <div class="svc-num">03</div>
+          <div class="svc-title">資産運用・損害保険</div>
+          <p class="svc-desc">有価証券投資と損害保険代理業を通じ、お客様の大切な資産をグローバルな視点で守り、着実に増やすソリューションをご提案します。</p>
+          <div class="svc-tags">
+            <span class="svc-tag">有価証券投資</span>
+            <span class="svc-tag">損害保険代理</span>
           </div>
         </div>
-        <div class="service-card">
-          <div class="service-icon">💻</div>
-          <div class="service-num">04</div>
-          <div class="service-title">インターネット・広告</div>
-          <p class="service-desc">
-            デジタルマーケティングからWeb広告まで、現代のビジネスに欠かせないオンライン戦略をサポートします。
-          </p>
-          <div class="service-tags">
-            <span class="service-tag">Web広告</span>
-            <span class="service-tag">デジタル</span>
+        <div class="svc-card">
+          <div class="svc-top">
+            <div class="svc-icon">🏡</div>
+            <span class="svc-arrow">↗</span>
+          </div>
+          <div class="svc-num">04</div>
+          <div class="svc-title">住宅宿泊事業</div>
+          <p class="svc-desc">住宅宿泊管理業許可のもと、民泊・短期賃貸の運営管理を代行。インバウンド需要の取り込みを通じて不動産収益の最大化を図ります。</p>
+          <div class="svc-tags">
+            <span class="svc-tag">民泊管理</span>
+            <span class="svc-tag">短期賃貸</span>
+            <span class="svc-tag">インバウンド</span>
           </div>
         </div>
-        <div class="service-card">
-          <div class="service-icon">✨</div>
-          <div class="service-num">05</div>
-          <div class="service-title">美容・飲食事業</div>
-          <p class="service-desc">
-            美容・飲食事業においても、JREクオリティで豊かな生活体験を提供します。
-          </p>
-          <div class="service-tags">
-            <span class="service-tag">美容</span>
-            <span class="service-tag">飲食</span>
+        <div class="svc-card blue-card">
+          <div class="svc-top">
+            <div class="svc-icon">💻</div>
+            <span class="svc-arrow">↗</span>
+          </div>
+          <div class="svc-num">05</div>
+          <div class="svc-title">インターネット・広告事業</div>
+          <p class="svc-desc">デジタルマーケティングからWeb広告まで、現代ビジネスに不可欠なオンライン戦略をサポート。事業のデジタル化をワンストップで支援します。</p>
+          <div class="svc-tags">
+            <span class="svc-tag">Web広告</span>
+            <span class="svc-tag">デジタル戦略</span>
           </div>
         </div>
-        <div class="service-card" style="background: linear-gradient(135deg, rgba(59,130,246,0.08), rgba(59,130,246,0.02)); border-color: rgba(59,130,246,0.15);">
-          <div class="service-icon" style="background: rgba(59,130,246,0.1); border-color: rgba(59,130,246,0.2);">🌐</div>
-          <div class="service-num" style="color: #60a5fa;">NEW</div>
-          <div class="service-title">グローバル展開</div>
-          <p class="service-desc">
-            国内の枠を超えたグローバルな視点で、海外不動産投資や国際ビジネスにおける各種サポートも展開中。
-          </p>
-          <div class="service-tags">
-            <span class="service-tag" style="background: rgba(59,130,246,0.1); border-color: rgba(59,130,246,0.2); color: #93c5fd;">海外投資</span>
-            <span class="service-tag" style="background: rgba(59,130,246,0.1); border-color: rgba(59,130,246,0.2); color: #93c5fd;">グローバル</span>
+        <div class="svc-card">
+          <div class="svc-top">
+            <div class="svc-icon">✨</div>
+            <span class="svc-arrow">↗</span>
+          </div>
+          <div class="svc-num">06</div>
+          <div class="svc-title">美容・飲食事業</div>
+          <p class="svc-desc">美容・飲食の分野においてもJREクオリティを体現。豊かなライフスタイル体験を提供し、地域コミュニティへの貢献を続けています。</p>
+          <div class="svc-tags">
+            <span class="svc-tag">美容</span>
+            <span class="svc-tag">飲食</span>
+            <span class="svc-tag">ライフスタイル</span>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Features -->
-  <section class="features" id="features">
-    <div class="section-header reveal">
-      <div class="section-tag">Why JRE</div>
-      <h2 class="section-title">選ばれ続ける4つの理由</h2>
-      <div class="divider"></div>
+  <!-- STATS -->
+  <div class="stats-strip">
+    <div class="stats-strip-inner">
+      <div class="stat-item">
+        <div class="stat-num"><span class="accent" data-target="37">0</span>年</div>
+        <div class="stat-label">創業からの実績</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num"><span class="accent">6</span>事業</div>
+        <div class="stat-label">多角的な事業展開</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num"><span class="accent">4</span>許認可</div>
+        <div class="stat-label">公的資格・免許保有</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num"><span class="accent">2</span>行</div>
+        <div class="stat-label">主要取引銀行</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">AAA</div>
+        <div class="stat-label">Quality Commitment</div>
+      </div>
     </div>
-    <div class="features-grid">
-      <div class="feature-item">
-        <div class="feature-icon">🏆</div>
-        <div class="feature-title">37年の実績と信頼</div>
-        <p class="feature-desc">1988年の創業から培ってきた豊富な実績。時代の変化に対応しながら積み重ねた信頼が私たちの最大の資産です。</p>
+  </div>
+
+  <!-- FEATURES -->
+  <section class="features-bg" id="features">
+    <div class="section-wrap">
+      <div class="reveal" style="text-align:center; max-width:600px; margin:0 auto 0;">
+        <div class="section-label" style="justify-content:center;">Why JRE</div>
+        <h2 class="section-title">選ばれ続ける<em>理由</em></h2>
       </div>
-      <div class="feature-item">
-        <div class="feature-icon">🔍</div>
-        <div class="feature-title">グローバルな市場視点</div>
-        <p class="feature-desc">国内外の市場動向を常に把握し、最適なタイミングでの意思決定をサポートします。</p>
-      </div>
-      <div class="feature-item">
-        <div class="feature-icon">🤝</div>
-        <div class="feature-title">ワンストップサービス</div>
-        <p class="feature-desc">不動産から自動車、保険、投資まで。複数の専門領域を一社でカバーする総合力が強みです。</p>
-      </div>
-      <div class="feature-item">
-        <div class="feature-icon">💎</div>
-        <div class="feature-title">品質へのコミットメント</div>
-        <p class="feature-desc">"Commitment To Quality Service." ─ この言葉を体現すべく、すべてのサービスで最高品質を追求します。</p>
+      <div class="features-grid">
+        <div class="feat-item">
+          <div class="feat-num">01</div>
+          <div class="feat-title">37年の実績と信頼</div>
+          <p class="feat-desc">1987年の設立以来、変化し続ける市場の中で積み重ねてきた信頼と実績。地域に根ざした長年の経験が最大の強みです。</p>
+        </div>
+        <div class="feat-item">
+          <div class="feat-num">02</div>
+          <div class="feat-title">グローバルな市場視点</div>
+          <p class="feat-desc">国内外の市場動向を常に把握。グローバルな視点での分析と提案で、お客様の資産を最適なタイミングで動かします。</p>
+        </div>
+        <div class="feat-item">
+          <div class="feat-num">03</div>
+          <div class="feat-title">ワンストップサービス</div>
+          <p class="feat-desc">不動産・自動車・保険・投資・住宅宿泊など、複数の専門領域を一社で対応。窓口が一つなので煩わしさゼロ。</p>
+        </div>
+        <div class="feat-item">
+          <div class="feat-num">04</div>
+          <div class="feat-title">公的許認可の安心感</div>
+          <p class="feat-desc">宅建業免許・住宅宿泊管理業許可・古物商・陸運局認可など、すべての事業で必要な許認可を正式に保有しています。</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Message -->
-  <section class="message" id="message">
-    <div class="message-inner reveal">
-      <div class="message-quote">"</div>
-      <p class="message-text">
-        私たちは単なる取引の場を提供するのではなく、<br>
-        お客様の人生に寄り添い、<em>共に未来を創造する</em>パートナーでありたい。<br>
-        その信念が、創業以来変わらない私たちの原点です。
-      </p>
-      <div class="message-author">
-        <span class="role">Representative Director</span>
-        <span class="name">村上 直樹</span>
-        <span class="name-en">Naoki Murakami</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- News -->
-  <section class="news" id="news">
-    <div class="section-header reveal">
-      <div class="section-tag">News & Topics</div>
-      <h2 class="section-title">最新情報</h2>
-      <div class="divider"></div>
-    </div>
-    <div class="news-list reveal">
-      <a href="#" class="news-item">
-        <span class="news-date">2026.04.01</span>
-        <span class="news-category">お知らせ</span>
-        <span class="news-title">2026年度の事業方針および新サービスについてのご案内</span>
-        <span class="news-arrow">→</span>
-      </a>
-      <a href="#" class="news-item">
-        <span class="news-date">2026.03.15</span>
-        <span class="news-category">不動産</span>
-        <span class="news-title">大阪市内 新規物件のご紹介 ─ 天王寺区エリア特集</span>
-        <span class="news-arrow">→</span>
-      </a>
-      <a href="#" class="news-item">
-        <span class="news-date">2026.02.20</span>
-        <span class="news-category">自動車</span>
-        <span class="news-title">レンタカーサービス拡充のお知らせ</span>
-        <span class="news-arrow">→</span>
-      </a>
-      <a href="#" class="news-item">
-        <span class="news-date">2026.01.10</span>
-        <span class="news-category">採用</span>
-        <span class="news-title">2026年度 新卒・中途採用のご案内</span>
-        <span class="news-arrow">→</span>
-      </a>
-    </div>
-  </section>
-
-  <!-- Contact -->
-  <section class="contact" id="contact">
-    <div class="contact-inner">
-      <div class="contact-info reveal">
-        <div class="tag">Contact Us</div>
-        <h2>お気軽に<br>ご相談ください</h2>
-        <p>
-          不動産・自動車・資産運用に関するご相談、<br>
-          その他ご不明な点はお気軽にお問い合わせください。<br>
-          専門スタッフが丁寧に対応いたします。
-        </p>
-        <div class="contact-details">
-          <div class="contact-detail-item">
-            <div class="contact-detail-icon">📍</div>
+  <!-- MESSAGE -->
+  <section class="message-bg" id="message">
+    <div class="section-wrap">
+      <div class="message-inner">
+        <div class="message-left reveal">
+          <div class="section-label">Message</div>
+          <h2 class="section-title">代表<em>メッセージ</em></h2>
+          <blockquote>
+            私たちは単なる取引の場を超え、<em>お客様の人生に寄り添い</em>、
+            共に未来を創造するパートナーでありたい。
+            その信念が、創業以来変わらない私たちの原点です。
+          </blockquote>
+          <div class="message-author">
+            <div class="author-avatar">M</div>
             <div>
-              <div class="contact-detail-label">Address</div>
-              <div class="contact-detail-value">〒543-0052 大阪市天王寺区大道4丁目5番9号</div>
+              <div class="author-name">村上 直樹 <span style="font-size:0.75rem;font-weight:400;color:var(--muted);">Naoki Murakami</span></div>
+              <div class="author-role">代表取締役 · Representative Director</div>
             </div>
           </div>
-          <div class="contact-detail-item">
-            <div class="contact-detail-icon">📞</div>
-            <div>
-              <div class="contact-detail-label">Phone</div>
-              <div class="contact-detail-value">06-6777-2775</div>
+        </div>
+        <div class="message-right reveal">
+          <h3>私たちのミッション</h3>
+          <div class="mission-items">
+            <div class="mission-item">
+              <div class="mission-icon">🎯</div>
+              <div class="mission-text"><strong>未来を創造する</strong><br>変化する時代を先読みし、お客様の可能性を最大化するソリューションを提供します。</div>
             </div>
-          </div>
-          <div class="contact-detail-item">
-            <div class="contact-detail-icon">🕐</div>
-            <div>
-              <div class="contact-detail-label">Business Hours</div>
-              <div class="contact-detail-value">平日 9:00 – 18:00</div>
+            <div class="mission-item">
+              <div class="mission-icon">🤝</div>
+              <div class="mission-text"><strong>人と共に生きる</strong><br>取引の完了がゴールではなく、長期的な信頼関係の構築こそが私たちの使命です。</div>
+            </div>
+            <div class="mission-item">
+              <div class="mission-icon">🌍</div>
+              <div class="mission-text"><strong>グローバル視点</strong><br>国内外の市場を常に注視し、最良のタイミングでお客様の資産を動かします。</div>
+            </div>
+            <div class="mission-item">
+              <div class="mission-icon">💎</div>
+              <div class="mission-text"><strong>品質へのコミットメント</strong><br>Commitment To Quality Service. ─ これが私たちの変わらない約束です。</div>
             </div>
           </div>
         </div>
       </div>
-      <form class="contact-form reveal" onsubmit="handleSubmit(event)">
-        <div class="form-row">
-          <div class="form-group">
-            <label>お名前 *</label>
-            <input type="text" placeholder="山田 太郎" required>
-          </div>
-          <div class="form-group">
-            <label>会社名</label>
-            <input type="text" placeholder="株式会社〇〇">
-          </div>
-        </div>
-        <div class="form-group">
-          <label>メールアドレス *</label>
-          <input type="email" placeholder="example@email.com" required>
-        </div>
-        <div class="form-group">
-          <label>電話番号</label>
-          <input type="tel" placeholder="06-0000-0000">
-        </div>
-        <div class="form-group">
-          <label>お問い合わせ種別</label>
-          <select>
-            <option value="">選択してください</option>
-            <option>不動産（売買・賃貸）</option>
-            <option>自動車・レンタカー</option>
-            <option>資産運用・保険</option>
-            <option>その他</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>お問い合わせ内容 *</label>
-          <textarea placeholder="ご相談内容をご記入ください" required></textarea>
-        </div>
-        <button type="submit" class="form-submit">送信する →</button>
-      </form>
     </div>
   </section>
 
-  <!-- Footer -->
+  <!-- NEWS -->
+  <section class="news-bg" id="news">
+    <div class="section-wrap">
+      <div class="news-header reveal">
+        <div>
+          <div class="section-label">News & Topics</div>
+          <h2 class="section-title">最新<em>情報</em></h2>
+        </div>
+        <a href="#" class="news-more">すべて見る →</a>
+      </div>
+      <div class="news-grid reveal">
+        <a href="#" class="news-card">
+          <span class="nc-date">2026.04.01</span>
+          <span class="nc-cat">お知らせ</span>
+          <span class="nc-title">2026年度の事業方針および新サービスのご案内</span>
+          <span class="nc-arrow">↗</span>
+        </a>
+        <a href="#" class="news-card">
+          <span class="nc-date">2026.03.15</span>
+          <span class="nc-cat">不動産</span>
+          <span class="nc-title">大阪市内 新規物件のご紹介 ─ 天王寺区エリア特集</span>
+          <span class="nc-arrow">↗</span>
+        </a>
+        <a href="#" class="news-card">
+          <span class="nc-date">2026.02.20</span>
+          <span class="nc-cat">自動車</span>
+          <span class="nc-title">レンタカーサービス拡充・新プランのお知らせ</span>
+          <span class="nc-arrow">↗</span>
+        </a>
+        <a href="#" class="news-card">
+          <span class="nc-date">2026.01.10</span>
+          <span class="nc-cat">採用</span>
+          <span class="nc-title">2026年度 新卒・中途採用情報を公開しました</span>
+          <span class="nc-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact-bg" id="contact">
+    <div class="section-wrap">
+      <div class="contact-inner">
+        <div class="contact-left reveal">
+          <div class="section-label">Contact Us</div>
+          <h2 class="section-title" style="color:white;">お気軽に<br><em>ご相談</em>ください。</h2>
+          <p class="contact-desc">
+            不動産・自動車・資産運用に関するご相談から、<br>
+            その他ご不明点まで何でもお気軽にどうぞ。<br>
+            専門スタッフが丁寧にご対応いたします。
+          </p>
+          <div class="contact-list">
+            <div class="cl-item">
+              <div class="cl-icon">📍</div>
+              <div>
+                <div class="cl-label">Address</div>
+                <div class="cl-value">〒543-0052 大阪市天王寺区大道4丁目5番9号</div>
+              </div>
+            </div>
+            <div class="cl-item">
+              <div class="cl-icon">📞</div>
+              <div>
+                <div class="cl-label">Phone</div>
+                <div class="cl-value">06-6777-2775</div>
+              </div>
+            </div>
+            <div class="cl-item">
+              <div class="cl-icon">📠</div>
+              <div>
+                <div class="cl-label">FAX</div>
+                <div class="cl-value">06-6777-2779</div>
+              </div>
+            </div>
+            <div class="cl-item">
+              <div class="cl-icon">🕐</div>
+              <div>
+                <div class="cl-label">Business Hours</div>
+                <div class="cl-value">平日 9:00 – 18:00</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="contact-right reveal">
+          <form class="contact-form" onsubmit="handleSubmit(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">お名前<span class="req">*</span></label>
+                <input class="form-input" type="text" placeholder="山田 太郎" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">会社名</label>
+                <input class="form-input" type="text" placeholder="株式会社〇〇">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">メールアドレス<span class="req">*</span></label>
+              <input class="form-input" type="email" placeholder="example@email.com" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">電話番号</label>
+              <input class="form-input" type="tel" placeholder="06-0000-0000">
+            </div>
+            <div class="form-group">
+              <label class="form-label">お問い合わせ種別</label>
+              <select class="form-select">
+                <option value="">選択してください</option>
+                <option>不動産（売買・賃貸）</option>
+                <option>自動車・レンタカー</option>
+                <option>資産運用・損害保険</option>
+                <option>住宅宿泊事業</option>
+                <option>インターネット・広告</option>
+                <option>その他</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">お問い合わせ内容<span class="req">*</span></label>
+              <textarea class="form-textarea" placeholder="ご相談内容をご記入ください" required></textarea>
+            </div>
+            <button type="submit" class="form-submit">送信する →</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
   <footer>
     <div class="footer-inner">
       <div class="footer-brand">
-        <div class="brand-en">JRE Corporation</div>
-        <div class="brand-jp">株式会社ジェイ・アール・イーコーポレイション</div>
-        <p>
+        <div class="fb-en">JRE Corporation</div>
+        <div class="fb-jp">株式会社ジェイ・アール・イーコーポレイション</div>
+        <p class="fb-desc">
+          〒543-0052 大阪市天王寺区大道4丁目5番9号<br>
+          TEL: 06-6777-2775　FAX: 06-6777-2779<br><br>
           未来を創造する。人と共に生きる。<br>
-          グローバルな視点で市場を監視し、<br>
-          お客様の資産を守り、共に成長します。
+          Commitment To Quality Service.
         </p>
       </div>
       <div class="footer-col">
@@ -1406,6 +1564,7 @@
           <li><a href="#services">不動産事業</a></li>
           <li><a href="#services">自動車事業</a></li>
           <li><a href="#services">資産運用・保険</a></li>
+          <li><a href="#services">住宅宿泊事業</a></li>
           <li><a href="#services">広告・デジタル</a></li>
           <li><a href="#services">美容・飲食</a></li>
         </ul>
@@ -1415,133 +1574,74 @@
         <ul>
           <li><a href="#about">会社概要</a></li>
           <li><a href="#message">代表メッセージ</a></li>
-          <li><a href="#news">最新情報</a></li>
+          <li><a href="#features">選ばれる理由</a></li>
+          <li><a href="#news">ニュース</a></li>
           <li><a href="#">採用情報</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Contact</h4>
+        <h4>Links</h4>
         <ul>
           <li><a href="#contact">お問い合わせ</a></li>
-          <li><a href="https://jreco.net/" target="_blank">旧ウェブサイト</a></li>
+          <li><a href="https://jreco.net/" target="_blank">コーポレートサイト</a></li>
           <li><a href="#">プライバシーポリシー</a></li>
+          <li><a href="#">サイトマップ</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
       <p>© 2026 JRE Corporation Co., Ltd. All rights reserved.</p>
-      <span class="commitment">Commitment To Quality Service.</span>
+      <span class="tagline">Commitment To Quality Service.</span>
     </div>
   </footer>
 
   <script>
-    // ── Particle Background ──
-    const canvas = document.getElementById('bg-canvas');
-    const ctx = canvas.getContext('2d');
-    let W, H, particles = [], lines = [];
-
-    function resize() {
-      W = canvas.width = window.innerWidth;
-      H = canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resize);
-    resize();
-
-    class Particle {
-      constructor() { this.reset(); }
-      reset() {
-        this.x = Math.random() * W;
-        this.y = Math.random() * H;
-        this.vx = (Math.random() - 0.5) * 0.3;
-        this.vy = (Math.random() - 0.5) * 0.3;
-        this.r = Math.random() * 1.5 + 0.5;
-        this.alpha = Math.random() * 0.4 + 0.1;
-        this.gold = Math.random() > 0.7;
-      }
-      update() {
-        this.x += this.vx;
-        this.y += this.vy;
-        if (this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.reset();
-      }
-      draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-        ctx.fillStyle = this.gold
-          ? `rgba(201,168,76,${this.alpha})`
-          : `rgba(180,190,210,${this.alpha})`;
-        ctx.fill();
-      }
-    }
-
-    for (let i = 0; i < 120; i++) particles.push(new Particle());
-
-    function drawConnections() {
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 120) {
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            const alpha = (1 - dist / 120) * 0.06;
-            ctx.strokeStyle = `rgba(201,168,76,${alpha})`;
-            ctx.lineWidth = 0.5;
-            ctx.stroke();
-          }
-        }
-      }
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, W, H);
-
-      // Gradient overlay
-      const grad = ctx.createRadialGradient(W/2, H/2, 0, W/2, H/2, Math.max(W, H) * 0.7);
-      grad.addColorStop(0, 'rgba(13,18,32,0)');
-      grad.addColorStop(1, 'rgba(8,12,20,0.4)');
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, W, H);
-
-      particles.forEach(p => { p.update(); p.draw(); });
-      drawConnections();
-      requestAnimationFrame(animate);
-    }
-    animate();
-
     // ── Navbar scroll ──
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
-      navbar.classList.toggle('scrolled', window.scrollY > 50);
+      navbar.classList.toggle('scrolled', window.scrollY > 60);
     });
 
     // ── Scroll reveal ──
-    const revealEls = document.querySelectorAll('.reveal, .stat-item, .service-card, .feature-item');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry, i) => {
         if (entry.isIntersecting) {
-          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          setTimeout(() => entry.target.classList.add('visible'), i * 60);
           observer.unobserve(entry.target);
         }
       });
     }, { threshold: 0.1 });
-    revealEls.forEach(el => observer.observe(el));
+    document.querySelectorAll('.reveal, .svc-card, .feat-item, .stat-item').forEach(el => observer.observe(el));
 
-    // ── Counter animation ──
-    const statNums = document.querySelectorAll('.stat-num[data-target]');
+    // ── Counter hero ──
+    const count1 = document.getElementById('count1');
+    let started = false;
+    const startCounter = () => {
+      if (started) return;
+      started = true;
+      let n = 0;
+      const iv = setInterval(() => {
+        n++;
+        count1.innerHTML = n + '<span>年</span>';
+        if (n >= 37) clearInterval(iv);
+      }, 40);
+    };
+    setTimeout(startCounter, 1200);
+
+    // ── Counter stats ──
     const counterObs = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           const el = entry.target;
           const target = parseInt(el.dataset.target);
-          let start = 0;
-          const duration = 1500;
-          const step = (timestamp) => {
-            if (!start) start = timestamp;
-            const progress = Math.min((timestamp - start) / duration, 1);
-            el.textContent = Math.floor(progress * target);
-            if (progress < 1) requestAnimationFrame(step);
+          if (!target) return;
+          let s = 0;
+          const duration = 1200;
+          const step = (ts) => {
+            if (!s) s = ts;
+            const p = Math.min((ts - s) / duration, 1);
+            el.textContent = Math.floor(p * target);
+            if (p < 1) requestAnimationFrame(step);
             else el.textContent = target;
           };
           requestAnimationFrame(step);
@@ -1549,21 +1649,21 @@
         }
       });
     }, { threshold: 0.5 });
-    statNums.forEach(el => counterObs.observe(el));
-
-    // ── Hamburger ──
-    document.getElementById('hamburger').addEventListener('click', () => {
-      alert('モバイルメニューは実装予定です。');
-    });
+    document.querySelectorAll('[data-target]').forEach(el => counterObs.observe(el));
 
     // ── Form ──
     function handleSubmit(e) {
       e.preventDefault();
       const btn = e.target.querySelector('.form-submit');
       btn.textContent = '送信しました ✓';
-      btn.style.background = 'linear-gradient(135deg, #2d6a4f, #52b788)';
+      btn.style.background = '#16a34a';
       btn.disabled = true;
     }
+
+    // ── Hamburger ──
+    document.getElementById('hamburger').addEventListener('click', () => {
+      alert('モバイルメニューは実装予定です。');
+    });
   </script>
 </body>
 </html>
